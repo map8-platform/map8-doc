@@ -7,7 +7,7 @@
 
 有任何技術疑難，歡迎您發到 [issues 專區](/../../issues)~
 
-或是有其他任何疑問，也都歡迎您 [跟我們聯絡](http://www.goyourlife.com/zh-TW/map-contact/) 喔!!!
+或是有其他任何疑問，也都歡迎您 [跟我們聯絡](https://www.map8.zone/contact) 喔!!!
 
 <br/>
 
@@ -62,7 +62,7 @@ https://api.map8.zone/v2/place/geocode?address=台北市內湖區港墘路200號
 - 舊版
     - (不再支援) [v1.1_2019-05-26](https://www.map8.zone/map8-api-docs/map8-api-docs_v1.1_2019-05-26_301e4b5a/)
 
-> 如果您在找的是台灣圖霸 Map8 「尊爵版 API」: 最適合房仲業不動產物件的 `生活機能` 與 `嫌惡設施` API，請 [聯繫](http://www.goyourlife.com/zh-TW/map-contact/) 我們為您服務。
+> 如果您在找的是台灣圖霸 Map8 「尊爵版 API」: 最適合房仲業不動產物件的 `生活機能` 與 `嫌惡設施` API，請 [聯繫](https://www.map8.zone/contact) 我們為您服務。
 
 <br/>
 
