@@ -1,213 +1,144 @@
-# 台灣圖霸 | Map8 Platform 
+# 台灣圖霸 | Map8 Platform
 # Application Programming Interface Specification
+歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸 | Map8 Platform** 地圖平台
 
-歡迎使用 **![](images/logo.png) 台灣圖霸 | Map8 Platform** 地圖平台
-
-
-## Notation
-1. 左右鍵符號 (大於、小於符號, 也就是 `<` `>`) 所描述的是一個變數 (variable) 的 formal parameter 形式。本文件底下若提及參數部分，使用到此表示法時，請讀者將之代換成實際的內容 (也就是代換為 actual parameter，並且，不留下 `<` `>` 符號)。例如, `https://api.map8.zone/find?keyword=<關鍵詞>` 若實際關鍵詞為 taiwan，則實際呼叫時，應代換為 `https://api.map8.zone/find?keyword=taiwan`。
-2. 位於 **API** 欄位內格式的 `<參數>`，為標準的 URL 之 query string 格式編碼 (i.e., `name=value` 以 URL `%` 編碼, 並以 `&` 連接)
-3. 除非另有指定，否則，地理經緯度座標 (lat 或 latitude 均指經度，lng 或 longitude 均指緯度) 以 WGS84 / EPSG:3857 為地理座標系統
+> Authentication、Notation 與 Version 請參見 [README](../../README.md)。線上版文件 : https://www.map8.zone/map8-api-docs/#api-directions-api
 
 ## Version
-- v0.4_2019-05-25
+- v3.1_2025-09-19 (the present document)
 
+## [Routes] 路徑規劃
+功能 : 多點路徑規劃、多點旅行之距離時間矩陣
 
-## Routes > Directions API SPEC
-功能 : 路徑規劃 API
+## API Index
+- [Directions API (多點路徑規劃)](#directions-api)
+- [Distance Matrix API (排班 : 多點運算交通時間距離矩陣)](./distance-matrix-api.md)
+- [Trip API (排行程 : 多途經點排序路徑規劃)](./trip-api.md)
 
 ### Directions API
-- 路徑規劃, 提供起點跟終點兩個點的座標值, 依照 map8 的圖資與演算法來產生連接此兩點的路徑
+(多點) 路徑規劃功能 : 依給定之起點、中途點 (零或多個)、與目的地之順序，以 Map8 的圖資與演算法來進行多點路徑規劃。
+
+> 請留意 : 本 API 支援的 <起訖點座標組> 總數 (包含起點、中途點、與目的地) 最多為 100 個。
 
 - **API** :
+
     ```
-    https://api.map8.zone/route/car/{起始點座標}.json
+    https://api.map8.zone/route/<交通工具>/<起訖點座標組>.json?<參數>
     ```
-- **HTTP Method** : 
+- **HTTP Method** :
     - **GET**
 - **Synopsis**
+    - **交通工具**
+        - 可為 `car` (汽車)、`bicycle` (自行車)、或 `foot` (步行)。
+    - **起訖點座標組**
+        - 格式為 : `<起點之經度>,<起點之緯度>;<中途點之經度>,<中途點之緯度>;...;<目的地之經度>,<目的地之緯度>.json`。亦即，乃以逗號分隔之 `<經度>,<緯度>` 座標為一組，然後以分號分隔連接數組座標 (請注意，座標格式是 `<經度>,<緯度>`，而非 `<緯度>,<經度>`)。第一組為起點，最後一組為目的地。而中間的數組則為要求路徑上必須經過的中途點 (waypoints)。
     - **<參數>**
-        - **起始點座標**
-            - 格式為 ```<緯度>,<經度>;<緯度>,<經度>.json```
-
-- **Request Message Body**: None.
+        - **key**
+            - 必要參數，請帶進您的 key。
+        - **alternatives**
+            - 選擇性參數 : 是否多路徑規劃 (`true` / `false`; 預設為 `false`; 請注意 `true` / `false` 值以如字面 (string literal) 帶入，而非以 1 / 0 或其它字元帶入)。
+        - **steps**
+            - 選擇性參數 : 是否需傳回所規劃路徑上的每一個詳細轉彎資訊 (`true` / `false`; 預設為 `false`)。
+            - 請注意 : 此逐轉彎的詳細資訊，視所要求路徑規劃之情況，資料量可能相當龐大。
+        - **overview**
+            - 選擇性參數 : 是否需要傳回所規劃路徑的路線總覽 (可供您用於將路線繪製在 Map8 地圖上。請取用 `geometry` 欄位)。可為 :
+                - `simplified` : 傳回精簡資料。
+                - `false` : 不傳回。
+                - `full` (預設值) : 傳回最詳細資料，以繪製出圖面上最為美觀的路徑幾何呈現，不會因為距離長短而有所解析度損失。
+            - (請注意以上之傳入值為如字面 (string literal) 帶入，而非以 1 / 0 或其它字元帶入)。
+        - **geometries**
+            - 選擇性參數，可為 `polyline`, `polyline6`, 或 `geojson` (預設為 `geojson`)。
+- **Request Message Body** : None.
 - **Response**
     - Status code : **200** OK
         - 表示成功完成您的 request
-    - 回傳結構範例
-        - **Response Message Body**:
-            - type: application/json
-            
-            ```json-doc
+        - **Response Message Body** :
+            - Content-type: application/json
+            - 回傳的結構的各個欄位的資訊所代表之意義如后
+
+            ```
             {
-              "code": "Ok",
-              "waypoints": [
+              "waypoints" : [                 // 起點、中途點、或目的地之座標資訊
                 {
-                  "hint": "string",
-                  "name": "",
-                  "location": [
-                    [
-                      121.546828,
-                      25.057806
-                    ]
-                  ],
-                  "distance": 110.769
-                }
+                  "distance" : <Number>,      // 自起點至此中途點的直線距離 (單位為公尺)
+                  "location" : [              // 為一帶有兩個元素之陣列，為 [<經度>, <緯度>]
+                    <Number>, <Number>
+                  ]
+                  "name" : <String>,          // 此中途點所在的道路名稱
+                },
+                ... (more results)...
               ],
-              "routes": [
+              "routes" : [                    // 路徑規劃結果
                 {
-                  "legs": [
+                  "legs" : [                  // 路徑規劃的每一段 `路程` (兩中途點為一段 `路程`。亦即，若只有起訖點，則 `legs` 只會有一個元素。而若有一個中途點，則將有兩個元素。依此類推)
                     {
-                      "distance": 0,
-                      "duration": 0,
-                      "summary": "string",
-                      "weight": 0,
-                      "steps": [
-                        {
-                          "driving_side": "string",
-                          "distance": 0,
-                          "geometry": "string",
-                          "duration": 0,
-                          "weight": 0,
-                          "name": "string",
-                          "mode": "string",
-                          "maneuver": [
-                            {
-                              "bearing_after": 0,
-                              "bearing_before": 0,
-                              "type": "string",
-                              "location": [
-                                [
-                                  121.546828,
-                                  25.057806
-                                ]
-                              ]
-                            }
-                          ],
-                          "intersections": [
-                            {
-                              "out": 0,
-                              "entry": [
-                                [
-                                  "true",
-                                  "true"
-                                ]
-                              ],
-                              "location": [
-                                [
-                                  121.546828,
-                                  25.057806
-                                ]
-                              ],
-                              "bearings": [
-                                [
-                                  121,
-                                  272
-                                ]
-                              ]
-                            }
-                          ]
-                        }
-                      ]
+                      "steps" : []
+                      "distance" : <Number>   // 本段 `路程` 的距離 (單位為公尺)
+                      "summary" : <String>    // 本段 `路程` 的摘要資訊
+                      "duration" : <Number>   // 本段 `路程` 的估計旅行時間 (單位為秒)
                     }
                   ],
-                  "weight_name": "string",
-                  "geometry": "string",
-                  "weight": 32,
-                  "distance": 228.4,
-                  "duration": 32.6
-                }
+                  "geometry" : {
+                    "coordinates" : [Array],  // 為一陣列，每個元素帶有兩個元素之陣列，分別為經度與緯度 (i.e., 此 `geometry` 陣列的每個元素為 [<經度>,<緯度>])。用以於地圖之圖面上繪製完整、美觀的路線圖
+                    "type": "LineString"
+                  },
+                  "distance" : <Number>,      // 本路徑規劃的總距離 (單位為公尺)
+                  "duration" : <Number>       // 本路徑規劃的總旅行時間 (單位為秒)
+                },
+                ... (more results)...
               ]
             }
             ```
-            - 以下分別敘述回傳的結構的各個欄位的資訊所代表之意義
-            ```
-                "code" : "Ok" // Request could be processed as expected
-            ```
-            ```
-                "waypoints" : [ // 代表啟始點的座標資訊
-                    {
-                        "hint" : <string> // Unique internal identifier of the segment
-                        "distance" : <number> // distance of the snapped point
-                        "location" : [ // Array that contains the [longitude, latitude] pair
-                            <number>
-                        ]
-                        "name" : <string> // Name of the street
-                    }
-                ]
-            ```
-            ```
-                "routes" : [ // 起始點的路徑規劃各點資料
-                    {
-                        "legs" : [ // 在起始點中間每個路口的資訊
-                            {
-                                "steps" : [  // array describs the turn-by-turn instructions
-                                    {
-                                        "intersections" : [ // 在此路口的每個轉彎可能的資訊
-                                        ]
-                                        "driving_side" :  <string> // legal driving side at the location for this step
-                                        "geometry" :  // 內部計算參數
-                                        "duration" : <number> // estimated travel time
-                                        "distance" : <number> // distance of travel from the maneuver to the subsequent step
-                                        "name" : <string> // name of the way
-                                        "weight" : // 內部計算參數
-                                        "mode" : <string> // mode of transportation
-                                        "maneuver" : {
-                                            "bearing_after" :  <number> // clockwise angle from true north to the direction of travel immediately after the maneuver
-                                            "bearing_before" : <number> // clockwise angle from true north to the direction of travel immediately before the maneuver
-                                            "type" : <string> // string indicating the type of maneuver
-                                            "location" : [ // Array that contains the [longitude, latitude] pair
-                                                <number> 
-                                            ]
-                                        }
-                                    }
-                                ]
-                                "weight" : // 內部計算參數
-                                "distance" : <number> // distance traveled by this route leg
-                                "summary" : <string> // Summary of the route
-                                "duration" : <number> // estimated travel time
-                            }
-                        ]
-                        "weight_name" : // 內部計算參數
-                        "geometry" : <string> // whole geometry of the route value
-                        "weight" : // 內部計算參數
-                        "distance" : <number> // distance traveled by the route
-                        "duration" : <number> //estimated travel time
-                    }
-                ]
-            ```
-    
     - Status code : **400** Bad Request
         - 表示您的 request 系統偵測到有錯誤而無法完成您的要求。通常是給入的參數多了或少了，或是格式有錯誤，或必要參數卻沒給，等等
-        - **Response Message Body**:
-            - type: text/json
+        - **Response Message Body** :
+            - Content-type: application/json
 
-            ```json-doc
+            ```
             {
-                "status" : <String>     // Status Code
+              "status" : <String>     // Status Code
             }
             ```
-    - 參見 [HTTP Status Code](#http-status-code) 一節說明本 API 回傳值之一般通則
-- Example
-    
+    - 參見 [HTTP Status Code](../appendix.md#http-status-code) 一節說明本 API 回傳值之一般通則
 
+- **Example** : 此例以 `car` (汽車) 作為交通工具 (請於瀏覽器直接打開)
 
-## 共同
+    ```
+    HTTP GET "https://api.map8.zone/route/car/121.574494,25.075904;121.576499,25.068178;121.579343,25.068134.json?key=<您的 key>"
+    ```
+    ```json
+    {
+        "routes": [
+            {
+                "geometry": {
+                    "coordinates": [
+                        [121.574564, 25.075867],
+                        [121.574525, 25.075806],
+                        [121.574466, 25.075726],
+                        ... (此為經緯度座標陣列, 供繪製地圖之用; 略)...
+                    ],
+                    "type": "LineString"
+                },
+                "legs": [
+                    { "steps": [], "distance": 1244, "duration": 204, "summary": "港墘路, 舊宗路二段" },
+                    { "steps": [], "distance": 406, "duration": 63, "summary": "瑞湖街, 民權東路六段11巷" }
+                ],
+                "distance": 1650,
+                "duration": 267
+            }
+        ],
+        "waypoints": [
+            { "distance": 8, "name": "港墘路", "location": [121.574564, 25.075867] },
+            { "distance": 0, "name": "瑞湖街", "location": [121.576499, 25.068178] },
+            { "distance": 0, "name": "民權東路六段15巷", "location": [121.579343, 25.068134] }
+        ]
+    }
+    ```
 
-### HTTP Status Code
-以上 API，可能回傳的 HTTP status code 如后 : 
-- 400 Bad Request : 表示您的 requset 解析有誤。通常是給入的參數多了或少了，或是格式有錯誤，或必要參數卻沒給，等等
-- 401 Authorization Required : 表示您未給定您的 key，或是您給的 key 並非有效。請跟我們聯絡
-- 503 Service Unavailable : 表示您的 request 已經超出與我們約定的 QoS (服務品質) 等級。通常過一會兒 (QoS 上限解除) 再重發一次即可成功。如果持續發生，請跟我們聯絡
-
-## 附註
-- 當然，載在 URL 的 query string 的參數部分無順序性
-
-
-<br/><br/>
+- [back to index](#api-index)
 
 ----
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/GO-LiFE/map8/master/images/logo_96x96.png" /> <br/> https://map8.zone
+<a href="https://map8.zone"><img src="../../images/logo_96x96.png" /></a> <br/> https://map8.zone
 </p>
