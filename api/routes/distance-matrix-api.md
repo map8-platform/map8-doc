@@ -1,6 +1,6 @@
-# 台灣圖霸 | Map8 Platform
+# 台灣圖霸電子地圖 API 平台 | Map8 Platform
 # Application Programming Interface Specification
-歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸 | Map8 Platform** 地圖平台
+歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸電子地圖 API 平台 | Map8 Platform**
 
 > Authentication、Notation 與 Version 請參見 [README](../../README.md)。線上版文件 : https://www.map8.zone/map8-api-docs/#api-distance-matrix-api
 
@@ -59,9 +59,9 @@
         - **destinationIndices**
             - 選擇性參數。格式同上述 `sourceIndices`。用以指定運算矩陣之目的地。(同上述 `sourceIndices`，若此參數未給，則預設將 `地點座標組` 內的全部座標均作為目的地。)
         - **origins**
-            - 選擇性參數 : 此即上述 `(方式二) origins / destinations` : 讓您可以改以更為直覺的方式來指定數個出發地。透過本參數，您可以採用 `place_id` 方式 (參見 [Find Place API](../places/places-api.md#find-place-api)) 來指定出發地，甚或直接給予地址，讓台灣圖霸的 [Geocoding API](../places/geocoding-api.md) 自動為您進行搜尋定址。當然，您也可以在這個參數內直接給入座標。
+            - 選擇性參數 : 此即上述 `(方式二) origins / destinations` : 讓您可以改以更為直覺的方式來指定數個出發地。透過本參數，您可以採用 `place_id` 方式 (參見 [Find Place API](../places/places-api.md#find-place-api)) 來指定出發地，甚或直接給予地址，讓台灣圖霸電子地圖 API 平台的 [Geocoding API](../places/geocoding-api.md) 自動為您進行搜尋定址。當然，您也可以在這個參數內直接給入座標。
             - 格式為 : `<地址>|...|<地址>` -- i.e., 以豎線 (pipe character `|`) 分隔之數個地點。其中，每個 `<地址>` 有底下三種選擇 :
-                1. 採用台灣圖霸 Places API 所回覆給您的 `place_id` (例如 `place_id:NzYqAQYCRh4EW19THlt1Uys9NR5eQQNTQg8EWHRZEUlfNQFyWURBEg==`)。
+                1. 採用台灣圖霸電子地圖 API 平台之 Places API 所回覆給您的 `place_id` (例如 `place_id:NzYqAQYCRh4EW19THlt1Uys9NR5eQQNTQg8EWHRZEUlfNQFyWURBEg==`)。
                 2. 地址 (例如 : `台北市內湖區港墘路200號4樓之3`)。
                 3. 座標 (格式是 `<經度>,<緯度>`)。
         - **destinations**

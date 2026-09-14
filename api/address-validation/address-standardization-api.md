@@ -1,6 +1,6 @@
-# 台灣圖霸 | Map8 Platform
+# 台灣圖霸電子地圖 API 平台 | Map8 Platform
 # Application Programming Interface Specification
-歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸 | Map8 Platform** 地圖平台
+歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸電子地圖 API 平台 | Map8 Platform**
 
 > Authentication、Notation 與 Version 請參見 [README](../../README.md)。線上版文件 : https://www.map8.zone/map8-api-docs/#api-address-standardization-api
 
@@ -15,7 +15,7 @@
 - [Address Standardization API (地址正規化)](#address-standardization-api)
 
 ### Address Standardization API
-台灣圖霸之 PAPAGO! 商用地圖擁有全台灣 988 萬筆門牌資料，精確到樓層！ 台灣圖霸，擁有全台灣超過 3000 萬筆新舊門牌資料庫，時時同步更新政府戶政司資料，提供最新地址現況。
+台灣圖霸電子地圖 API 平台之 PAPAGO! 商用地圖擁有全台灣 988 萬筆門牌資料，精確到樓層！ 台灣圖霸電子地圖 API 平台，擁有全台灣超過 3000 萬筆新舊門牌資料庫，時時同步更新政府戶政司資料，提供最新地址現況。
 
 > 請留意 : URL 必須正確 [編碼](https://en.wikipedia.org/wiki/Percent-encoding)，並且所有 Map8 API 均限制在最多 8192 個字元。當您建立呼叫 Map8 API 的 URL 時，請務必留意到此限制。
 

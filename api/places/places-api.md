@@ -1,6 +1,6 @@
-# 台灣圖霸 | Map8 Platform
+# 台灣圖霸電子地圖 API 平台 | Map8 Platform
 # Application Programming Interface Specification
-歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸 | Map8 Platform** 地圖平台
+歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸電子地圖 API 平台 | Map8 Platform**
 
 > Authentication、Notation 與 Version 請參見 [README](../../README.md)。線上版文件 : https://www.map8.zone/map8-api-docs/#places
 
@@ -8,7 +8,7 @@
 - v3.1_2025-09-19 (the present document)
 
 ## [Places] 地點搜尋
-功能 : 搜尋台灣圖霸地圖內的地點
+功能 : 搜尋台灣圖霸電子地圖 API 平台圖資內的地點
 
 ## API Index
 - **Place Search** :
@@ -42,7 +42,7 @@
         - **input**
             - 必要參數，欲搜尋的地點的關鍵詞 (無任何空白分隔)。可以是地址、地名、商店名稱、或電話。
         - **inputtype**
-            - 選擇性參數，應為 `textquery` 或 `phonenumber` 兩者之一。若未給，則由台灣圖霸系統自動智慧判斷。
+            - 選擇性參數，應為 `textquery` 或 `phonenumber` 兩者之一。若未給，則由台灣圖霸電子地圖 API 平台自動智慧判斷。
         - **locationbias**
             - 選擇性參數，可為 :
                 - `ipbias` : 要求系統依照您發出此 request 的 IP address 來決定本 API 進行搜尋時的中心點。
@@ -54,7 +54,7 @@
         - **formatted_address_embed_postcode**
             - 若上述 `postcode` 參數有被指定，則指定此參數以將三碼郵遞區號直接內嵌於 response 之 `formatted_address` 欄位內 (否則，三碼郵遞區號將另以 `postcode` 欄位回傳)。
     - **(Migration 指南) 與 Google Maps 的 Find Place API 相容性**
-        1. 台灣圖霸一次就把全部欄位回應給您，因此，[Google Maps Find Place API 的 fields 參數](https://developers.google.com/places/web-service/search#Fields) 台灣圖霸見到會直接 ignore -- 因此，如果您本來有使用此參數，那您可以選擇放著不改 (如果您認為這樣能降低您改動的 effort 的話)。
+        1. 台灣圖霸電子地圖 API 平台一次就把全部欄位回應給您，因此，[Google Maps Find Place API 的 fields 參數](https://developers.google.com/places/web-service/search#Fields) 台灣圖霸電子地圖 API 平台見到會直接 ignore -- 因此，如果您本來有使用此參數，那您可以選擇放著不改 (如果您認為這樣能降低您改動的 effort 的話)。
         2. `language`, `locationbias.circular`, `locationbias.rectangular` 也均 ignore (因此，同樣地，您可自行決定要刪除或留著)。
 - **Response**
     - Status code : **200** OK
@@ -78,8 +78,8 @@
                       "lng" : <Number>             // 經度
                       },
                   },
-                  "id" : <String>,                  // 此地點於台灣圖霸系統內的地點 ID
-                  "place_id" : <String>,            // 此地點於台灣圖霸系統內的地點 ID
+                  "id" : <String>,                  // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
+                  "place_id" : <String>,            // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
                   "name" : <String>,                // 本筆資料的名稱 (地名、道路名、地點名) (例如 "圖霸科技股份有限公司")
                   "tel" : <String>,                 // 本筆資料的電話號碼 (例如 "02-87921567")
                   "city" : <String>,                // 本筆資料所屬的城市 (例如 "台北市")
@@ -87,7 +87,7 @@
                   "type" : <String>,                // 本筆資料的類型，可為 : "地點", "地址", 或 "道路"
                   "chain" : <String>,               // 本筆資料若屬於某連鎖機構, 則此欄位為該機構名稱 (例如 "研勤集團")
                   "branch" : <String>,              // 本筆資料若屬於某連鎖機構, 則此欄位為該分店名稱 (例如 "台中辦公室")
-                  "cat" : <String>,                 // 本筆資料於台灣圖霸系統內所歸屬的地點類型 (例如 "公司行號")
+                  "cat" : <String>,                 // 本筆資料於台灣圖霸電子地圖 API 平台內所歸屬的地點類型 (例如 "公司行號")
                   "distance" : <Number>,            // 本筆資料與輸入的中心點座標間的直線距離, 單位為 km
                 }
               ],
@@ -215,7 +215,7 @@
         - **key**
             - 必要參數，請帶進您的 key。
         - **placeid**
-            - 必要參數，欲取得的地點之 ID (由之前呼叫之 Map8 台灣圖霸其他 API 所回傳；例如 [Autocomplete API](#place-autocomplete-api))。
+            - 必要參數，欲取得的地點之 ID (由之前呼叫之 台灣圖霸電子地圖 API 平台之其他 API 所回傳；例如 [Autocomplete API](#place-autocomplete-api))。
 
             > 提醒您 : 輸入之 `placeid` 請務必注意遵照標準規範 -- 務必先經過 [URL encode](https://en.wikipedia.org/wiki/Percent-encoding) 編碼後再傳入，以免發生錯誤而收到 HTTP 400 Bad Request。(事實上，URL 所有以 query string 形式帶入的參數，應當都要視情況，適當地經過 URL encode 編碼後再傳入)。
 
@@ -244,8 +244,8 @@
                     "lng" : <Number>             // 經度
                   },
                 },
-                "id" : <String>,                  // 此地點於台灣圖霸系統內的地點 ID
-                "place_id" : <String>,            // 此地點於台灣圖霸系統內的地點 ID
+                "id" : <String>,                  // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
+                "place_id" : <String>,            // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
                 "name" : <String>,                // 此地點的名稱 (地名、道路名、地點名) (例如 "圖霸科技股份有限公司")
                 "tel" : <String>,                 // 此地點的電話號碼 (例如 "02-87921567")
                 "city" : <String>,                // 此地點所屬的城市 (例如 "台北市")
@@ -253,7 +253,7 @@
                 "type" : <String>,                // 此地點的類型，可為 : "地點", "地址", 或 "道路"
                 "chain" : <String>,               // 此地點若屬於某連鎖機構, 則此欄位為該機構名稱 (例如 "研勤集團")
                 "branch" : <String>,              // 此地點若屬於某連鎖機構, 則此欄位為該分店名稱 (例如 "台中辦公室")
-                "cat" : <String>,                 // 此地點於台灣圖霸系統內所歸屬的地點類型 (例如 "公司行號")
+                "cat" : <String>,                 // 此地點於台灣圖霸電子地圖 API 平台內所歸屬的地點類型 (例如 "公司行號")
                 "distance" : <Number>,            // 本筆資料與輸入的中心點座標間的直線距離, 單位為 km
               },
               "status" : <String>  // Status Code
@@ -330,7 +330,7 @@
         - **location**
             - 必要參數，要求系統依據給定的地理座標為搜尋中心點。格式為 `<緯度>,<經度>`，分別為緯度與經度。
         - **radius**
-            - 選擇性參數，指定以上述 `location` 為中心，以本參數 `radius` 指定方圓半徑之距離作為搜索範圍 (最大為 50.000 公里)。若未給，則由台灣圖霸系統自動智慧判斷。
+            - 選擇性參數，指定以上述 `location` 為中心，以本參數 `radius` 指定方圓半徑之距離作為搜索範圍 (最大為 50.000 公里)。若未給，則由台灣圖霸電子地圖 API 平台自動智慧判斷。
         - **limit**
             - 選擇性參數。指定取回的資料筆數。單次回應最多為 100 筆。
         - **cat**
@@ -364,8 +364,8 @@
                       "lng" : <Number>             // 經度
                     },
                   },
-                  "id" : <String>,                  // 此地點於台灣圖霸系統內的地點 ID
-                  "place_id" : <String>,            // 此地點於台灣圖霸系統內的地點 ID
+                  "id" : <String>,                  // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
+                  "place_id" : <String>,            // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
                   "name" : <String>,                // 本筆資料的名稱 (地名、道路名、地點名) (例如 "圖霸科技股份有限公司")
                   "tel" : <String>,                 // 本筆資料的電話號碼 (例如 "02-87921567")
                   "city" : <String>,                // 本筆資料所屬的城市 (例如 "台北市")
@@ -373,7 +373,7 @@
                   "type" : <String>,                // 本筆資料的類型，可為 : "地點", "地址", 或 "道路"
                   "chain" : <String>,               // 本筆資料若屬於某連鎖機構, 則此欄位為該機構名稱 (例如 "研勤集團")
                   "branch" : <String>,              // 本筆資料若屬於某連鎖機構, 則此欄位為該分店名稱 (例如 "台中辦公室")
-                  "cat" : <String>,                 // 本筆資料於台灣圖霸系統內所歸屬的地點類型 (例如 "公司行號")
+                  "cat" : <String>,                 // 本筆資料於台灣圖霸電子地圖 API 平台內所歸屬的地點類型 (例如 "公司行號")
                   "distance" : <Number>,            // 本筆資料與輸入的中心點座標間的直線距離, 單位為 km
                 },
                 ... (more results) ...
@@ -521,7 +521,7 @@
             - 選擇性參數，要求系統依據給定的地理座標為搜尋中心點。格式為 `<緯度>,<經度>`，分別為緯度與經度。
             - 此參數若未給，則系統預設依照您發出此 request 的 IP address 來決定本 API 進行搜尋時的中心點。但請注意 : **此方式將增加額外的系統動作，可能因網路而造成搜尋速度相當幅度的延遲。因此，強烈建議您一律給 `location=<緯度>,<經度>` 參數**
         - **radius**
-            - 選擇性參數，指定以上述 `location` 為中心，以本參數 `radius` 指定方圓半徑之距離作為搜索範圍 (最大為 50.000 公里)。若未給，則由台灣圖霸系統自動智慧判斷。
+            - 選擇性參數，指定以上述 `location` 為中心，以本參數 `radius` 指定方圓半徑之距離作為搜索範圍 (最大為 50.000 公里)。若未給，則由台灣圖霸電子地圖 API 平台自動智慧判斷。
         - **postcode**
             - 選擇性參數 : 是否需要回傳三碼郵遞區號 (`true` / `false`; 預設為 `false`)。範例同 [Find Place API](#find-place-api) 之範例。
         - **formatted_address_embed_postcode**
@@ -605,7 +605,7 @@
             - 選擇性參數，要求系統依據給定的地理座標為搜尋中心點。格式為 `<緯度>,<經度>`，分別為緯度與經度。
             - 此參數若未給，則系統預設依照您發出此 request 的 IP address 來決定本 API 進行搜尋時的中心點。但請注意 : **此方式將增加額外的系統動作，可能因網路而造成搜尋速度相當幅度的延遲。因此，強烈建議您一律給 `location=<緯度>,<經度>` 參數**
         - **radius**
-            - 選擇性參數，指定以上述 `location` 為中心，以本參數 `radius` 指定方圓半徑之距離作為搜索範圍 (最大為 50.000 公里)。若未給，則由台灣圖霸系統自動智慧判斷。
+            - 選擇性參數，指定以上述 `location` 為中心，以本參數 `radius` 指定方圓半徑之距離作為搜索範圍 (最大為 50.000 公里)。若未給，則由台灣圖霸電子地圖 API 平台自動智慧判斷。
         - **strictbounds**
             - 選擇性參數 : 是否要求強制遵循上述 `radius` 參數之指定範圍 (`true` / `false`; 預設為 `false`)。
     - **(Migration 指南) 與 Google Maps 的 Place Autocomplete API 相容性**
@@ -626,13 +626,13 @@
               ],
               "predictions" : [                       // `搜尋結果` 陣列
                 {
-                  "id" : <String>,                  // 此地點於台灣圖霸系統內的地點 ID
-                  "place_id" : <String>,            // 此地點於台灣圖霸系統內的地點 ID
+                  "id" : <String>,                  // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
+                  "place_id" : <String>,            // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
                   "name" : <String>,                // 本筆資料的名稱 (地名、道路名、地點名) (例如 "圖霸科技股份有限公司")
                   "city" : <String>,                // 本筆資料所屬的城市 (例如 "台北市")
                   "town" : <String>,                // 本筆資料所屬的行政區 (例如 "內湖區")
                   "type" : <String>,                // 本筆資料的類型，可為 : "地點", "地址", 或 "道路"
-                  "cat" : <String>,                 // 本筆資料於台灣圖霸系統內所歸屬的地點類型 (例如 "公司行號")
+                  "cat" : <String>,                 // 本筆資料於台灣圖霸電子地圖 API 平台內所歸屬的地點類型 (例如 "公司行號")
                   "distance" : <Number>,            // 本筆資料與輸入的中心點座標間的直線距離, 單位為 km
                 },
                 ... (more results) ...

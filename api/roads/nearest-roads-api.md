@@ -1,6 +1,6 @@
-# 台灣圖霸 | Map8 Platform
+# 台灣圖霸電子地圖 API 平台 | Map8 Platform
 # Application Programming Interface Specification
-歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸 | Map8 Platform** 地圖平台
+歡迎使用 **<img src="../../images/logo.png" width="28" height="28"> 台灣圖霸電子地圖 API 平台 | Map8 Platform**
 
 > Authentication、Notation 與 Version 請參見 [README](../../README.md)。線上版文件 : https://www.map8.zone/map8-api-docs/#api-nearest-roads-api
 
@@ -104,8 +104,8 @@
               "results" : [                            // `搜尋結果` 陣列
                 {
                   "formatted_address" : <String>,    // 地址 (經整理、格式化過的)
-                  "id" : <String>,                   // 此地點於台灣圖霸系統內的地點 ID
-                  "place_id" : <String>,             // 此地點於台灣圖霸系統內的地點 ID
+                  "id" : <String>,                   // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
+                  "place_id" : <String>,             // 此地點於台灣圖霸電子地圖 API 平台內的地點 ID
                   "name" : <String>,                 // 本筆資料的名稱 (地名、道路名、地點名)
                   "city" : <String>,                 // 本筆資料所屬的城市 (例如 "台北市")
                   "town" : <String>,                 // 本筆資料所屬的行政區 (例如 "內湖區")

@@ -1,7 +1,7 @@
-# 台灣圖霸 | Map8 Platform
-歡迎使用 **<img src="images/logo.png" width="28" height="28"> 台灣圖霸 | Map8 Platform** 地圖平台
+# 台灣圖霸電子地圖 API 平台 | Map8 Platform
+歡迎使用 **<img src="images/logo.png" width="28" height="28"> 台灣圖霸電子地圖 API 平台 | Map8 Platform**
 
-- 歡迎試用我們的 **台灣圖霸 (Map8 Platform) 地圖平台 API**!! [請點此申請試用](https://docs.google.com/forms/d/1BMN0cnmROBvtfU1JAxk-2sR9KcZdViHMNFtsyTR12l8)~
+- 歡迎試用我們的 **台灣圖霸電子地圖 API 平台 (Map8 Platform) API**!! [請點此申請試用](https://docs.google.com/forms/d/1BMN0cnmROBvtfU1JAxk-2sR9KcZdViHMNFtsyTR12l8)~
 - 然後也歡迎您到我們的 [官方 API Explorer](https://www.map8.zone/api-explorer) 試用看看~ :smile:
 - 完整線上版 API 文件請見 : https://www.map8.zone/map8-api-docs/
 
@@ -12,9 +12,9 @@
 <br/>
 
 ## Authentication (認證與授權)
-**台灣圖霸平台 | Map8 Platform** 的 API 透過 `API key` 來讓您使用平台的 API。您可以 [點此申請試用](https://docs.google.com/forms/d/1BMN0cnmROBvtfU1JAxk-2sR9KcZdViHMNFtsyTR12l8)。
+**台灣圖霸電子地圖 API 平台 | Map8 Platform** 的 API 透過 `API key` 來讓您使用平台的 API。您可以 [點此申請試用](https://docs.google.com/forms/d/1BMN0cnmROBvtfU1JAxk-2sR9KcZdViHMNFtsyTR12l8)。
 
-**台灣圖霸平台 | Map8 Platform** 的 API 預期來自 client 端的所有 API 請求於 URL 的 query string 中以 `key` 參數夾帶 API key 以認證並取得使用，例如 :
+**台灣圖霸電子地圖 API 平台 | Map8 Platform** 的 API 預期來自 client 端的所有 API 請求於 URL 的 query string 中以 `key` 參數夾帶 API key 以認證並取得使用，例如 :
 
 ```
 https://api.map8.zone/v2/place/geocode?address=台北市內湖區港墘路200號&key=<您的 key>
@@ -62,7 +62,7 @@ https://api.map8.zone/v2/place/geocode?address=台北市內湖區港墘路200號
 - 舊版
     - (不再支援) [v1.1_2019-05-26](https://www.map8.zone/map8-api-docs/map8-api-docs_v1.1_2019-05-26_301e4b5a/)
 
-> 如果您在找的是台灣圖霸 Map8 「尊爵版 API」: 最適合房仲業不動產物件的 `生活機能` 與 `嫌惡設施` API，請 [聯繫](https://www.map8.zone/contact) 我們為您服務。
+> 如果您在找的是台灣圖霸電子地圖 API 平台 Map8 「尊爵版 API」: 最適合房仲業不動產物件的 `生活機能` 與 `嫌惡設施` API，請 [聯繫](https://www.map8.zone/contact) 我們為您服務。
 
 <br/>
 
@@ -110,7 +110,7 @@ Places 提供底下 API's :
     - [Map8 Platform API Explorer](https://www.map8.zone/api-explorer/#/%5BPlaces%5D%20Geocoding%20API)
 
 3. **Places Library, Maps Javascript API**
-    - 為您的網站添加互動式地圖，並加入台灣圖霸的圖資搜尋功能 (以 javascript library 的形式提供您簡單的開發應用介面)
+    - 為您的網站添加互動式地圖，並加入台灣圖霸電子地圖 API 平台的圖資搜尋功能 (以 javascript library 的形式提供您簡單的開發應用介面)
 
 ## Routes 類
 利用 Map8 圖資所計算出之路網資訊, 提供多點路徑規劃、多點旅行之距離時間矩陣
@@ -151,9 +151,9 @@ Places 提供底下 API's :
 - 資料視覺化 (data visualization)、高度互動 (highly interactive)、可共享 (shareable) 的 solution
 
     > 現代 BI (Business Intelligence) 的需求，是遠遠超過於傳統分析報表僅止於圖 (graphs) 與表 (charts) 的。您想要鑑別哪些投保物件恰位於風暴路徑上嗎? 或是想比對建置成本與人行流量以最佳化展店地點嗎? 想規劃運送路徑以避開交通並降低油耗?
-    - `台灣圖霸` 正是這些問題的最佳解答。而且，視覺化 (visual) 且互動 (interactive)
+    - `台灣圖霸電子地圖 API 平台` 正是這些問題的最佳解答。而且，視覺化 (visual) 且互動 (interactive)
 
-#### `台灣圖霸` https://map8.zone 提供您基於地圖的資料分析視覺化、高度互動、可共用的極佳使用體驗!!!
+#### `台灣圖霸電子地圖 API 平台` https://map8.zone 提供您基於地圖的資料分析視覺化、高度互動、可共用的極佳使用體驗!!!
 
 <br/>
 
