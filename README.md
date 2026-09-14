@@ -58,7 +58,7 @@ https://api.map8.zone/v2/place/geocode?address=台北市內湖區港墘路200號
     3. 新增 `postcode` 與 `formatted_address_embed_postcode` 參數，以提供您地址之郵遞區號。
     4. 請注意 : 本版本起，[Place Autocomplete API](./api/places/places-api.md#place-autocomplete-api) 用法有所改變 -- 如同 Google 用法，Place Autocomplete API 不提供座標。請於使用者選定 autocomplete 所提供之候選清單之一的時候，透過 Place Details API 取得地點的詳細資訊。
     5. Nearby Search API 與 Text Search API 新增 `cat` 參數，支援指定欲搜尋的 [地點類型](./api/appendix.md#地點類型)。
-    6. Map8 平台維護了最具權威性的門牌地址資料庫，並隨時與台灣戶政司門牌地址資料保持更新。[Geocoding API](./api/places/geocoding-api.md) 新增提供 `level` (定位結果的層級，譬如，為定位到縣市、或是道路，或是精確到門牌)。或者門牌並不存在，因而透過內插 (interpolation)，或是改經由模糊搜尋並給予可能性指數 `likelihood`。並透過 `authoritative` 欄位告訴您定位結果是否出自於 Map8 平台最具權威的門牌地址資料庫。
+    6. Map8 台灣圖霸電子地圖 API 平台維護了最具權威性的門牌地址資料庫，並隨時與台灣戶政司門牌地址資料保持更新。[Geocoding API](./api/places/geocoding-api.md) 新增提供 `level` (定位結果的層級，譬如，為定位到縣市、或是道路，或是精確到門牌)。或者門牌並不存在，因而透過內插 (interpolation)，或是改經由模糊搜尋並給予可能性指數 `likelihood`。並透過 `authoritative` 欄位告訴您定位結果是否出自於 Map8 台灣圖霸電子地圖 API 平台最具權威的門牌地址資料庫。
 - 舊版
     - (不再支援) [v1.1_2019-05-26](https://www.map8.zone/map8-api-docs/map8-api-docs_v1.1_2019-05-26_301e4b5a/)
 
