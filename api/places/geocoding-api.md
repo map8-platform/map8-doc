@@ -80,7 +80,7 @@
                   "postcode": <String>,             // 本筆資料的三碼郵遞區號
                   "level": <String>,                // 本筆資料定位結果之層級，請見底下說明
                   "likelihood": <Number>,           // 本筆資料定位結果之信心指數，請見底下說明
-                  "authoritative": <String>         // 本筆資料定位結果是否出自於 Map8 最具正規權威性的地址門牌資料庫。若是，本欄位值為 `true`，否則為 `false`
+                  "authoritative": <String>         // 本筆資料定位結果是否出自於 Map8 台灣圖霸電子地圖 API 平台最具正規權威性的地址門牌資料庫。若是，本欄位值為 `true`，否則為 `false`
                 }
               ],
               "status" : <String>  // Status Code
@@ -110,7 +110,7 @@
                 | `fuzzy` | 地址定位結果乃透過模糊搜尋結果而得 |
 
             - **likelihood** : 定位結果之信心指數。為百分比，數值為介於 0 ~ 100 之間帶兩位小數。本欄位僅在於 **level** 為 `fuzzy` 時有效。否則值為 `-1`。
-            - **authoritative** : 定位結果是否出自於 Map8 最具正規 **權威性** 的 **地址門牌資料庫**。若是，本欄位值為 `true`，否則為 `false`。
+            - **authoritative** : 定位結果是否出自於 Map8 台灣圖霸電子地圖 API 平台最具正規 **權威性** 的 **地址門牌資料庫**。若是，本欄位值為 `true`，否則為 `false`。
 
             > 請注意 : 當定位結果之 `level` 小於 0 時 (i.e., 為推算值)，`place_id` 與 `id` 欄位均將為空值。
 
